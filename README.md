@@ -40,21 +40,21 @@ The API will be available at: http://localhost:8000
 
 ## View logs
 ```bash
-  make logs
+make logs
 ```
  ### Health Checks
 
   1. Liveness
-     ```bash
+ ```bash
     curl http://localhost:8000/health/live
-  ``
+  ```
     Always returns 200 once the process is running.
 
   2. Readiness
-
+```bash
     curl http://localhost:8000/health/ready
-``
-    Returns 200 only if:
+```
+   Returns 200 only if:
     1. Database is reachable and schema initialized
     2. WEBHOOK_SECRET is set
        Otherwise returns 503.
