@@ -40,16 +40,14 @@ The API will be available at: http://localhost:8000
 
 ## View logs
 ```bash
-  -> make logs
+  make logs
 ```
  ### Health Checks
 
   1. Liveness
      ```bash
-
     curl http://localhost:8000/health/live
-
- ``
+  ``
     Always returns 200 once the process is running.
 
   2. Readiness
@@ -68,8 +66,9 @@ The API will be available at: http://localhost:8000
  ### Headers
   1. Content-Type: application/json
   2. X-Signature: hex-encoded HMAC-SHA256 of the raw request body, using WEBHOOK_SECRET
-```bash
+
  Request Body :
+ ```bash
  {
   "message_id": "m1",
   "from": "+919876543210",
@@ -191,4 +190,5 @@ This format is compatible with tools like jq and log aggregators.
 
 ## Author:
 Aditi Vasudeva
+
 Backend Assignment Submission
