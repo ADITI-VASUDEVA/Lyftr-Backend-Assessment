@@ -28,28 +28,34 @@ The service is containerized using Docker and runs locally via Docker Compose.
 ```bash
 export WEBHOOK_SECRET="testsecret"
 make up
+```
 
 
 The API will be available at: http://localhost:8000
 
 ## Stop & clean up
-   -> make down
+ ```bash
+ make down
+```
 
 ## View logs
+```bash
   -> make logs
-
+```
  ### Health Checks
 
   1. Liveness
+     ```bash
 
     curl http://localhost:8000/health/live
-   
+
+ ``
     Always returns 200 once the process is running.
 
   2. Readiness
 
     curl http://localhost:8000/health/ready
-
+``
     Returns 200 only if:
     1. Database is reachable and schema initialized
     2. WEBHOOK_SECRET is set
@@ -62,7 +68,7 @@ The API will be available at: http://localhost:8000
  ### Headers
   1. Content-Type: application/json
   2. X-Signature: hex-encoded HMAC-SHA256 of the raw request body, using WEBHOOK_SECRET
-
+```bash
  Request Body :
  {
   "message_id": "m1",
@@ -71,7 +77,7 @@ The API will be available at: http://localhost:8000
   "ts": "2025-01-15T10:00:00Z",
   "text": "Hello"
  }
-
+```
  ### Behavior
 
  1. Invalid or missing signature → 401 (no DB insert)
@@ -79,8 +85,10 @@ The API will be available at: http://localhost:8000
  3. First valid request for a message_id → stored, 200
  4. Subsequent valid requests with same message_id → idempotent 200
 
-Success Response -> { "status": "ok" }
-
+Success Response :
+```bash
+{ "status": "ok" }
+```
 ## Listing Messages
 
 ###  Endpoint -> GET /messages
@@ -100,18 +108,20 @@ Success Response -> { "status": "ok" }
  ts ASC, message_id ASC
 
  Response :
+ ```bash
 {
   "data": [...],
   "total": 4,
   "limit": 2,
   "offset": 0
 }
-
+```
 ##  Analytics
 
 ### Endpoint -> GET /stats
 
   Response:
+  ```bash
  {
   "total_messages": 123,
   "senders_count": 10,
@@ -121,6 +131,7 @@ Success Response -> { "status": "ok" }
   "first_message_ts": "2025-01-10T09:00:00Z",
   "last_message_ts": "2025-01-15T10:00:00Z"
  }
+```
  If no messages exist, timestamps are returned as null.
 
 
